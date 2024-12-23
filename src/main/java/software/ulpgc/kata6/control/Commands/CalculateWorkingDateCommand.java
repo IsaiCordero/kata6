@@ -1,5 +1,9 @@
-package software.ulpgc.kata6.control;
+package software.ulpgc.kata6.control.Commands;
 
+import software.ulpgc.kata6.control.Command;
+import software.ulpgc.kata6.model.Calendar;
+
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Iterator;
 
@@ -13,14 +17,20 @@ public class CalculateWorkingDateCommand implements Command {
     }
 
     @Override
-    public void execute() {
-        Iterator<LocalDate> iterator = new 
+    public void execute() throws IOException {
+        Iterator<LocalDate> iterator = new Calendar().from(input.start());
+        LocalDate end = input.start();
+        for(int i = 0; i < input.daysWorking(); i++){
+            end = iterator.next();
+        }
+        output.end(end);
     }
 
-    private interface Input {
-
+    public interface Input {
+        LocalDate start();
+        int daysWorking();
     }
-    private interface Output {
-
+    public interface Output {
+        void end(LocalDate date) throws IOException;
     }
 }

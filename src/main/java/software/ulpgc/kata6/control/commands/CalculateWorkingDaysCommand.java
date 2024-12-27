@@ -1,12 +1,10 @@
-package software.ulpgc.kata6.control.Commands;
+package software.ulpgc.kata6.control.commands;
 
 import software.ulpgc.kata6.control.Command;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.DayOfWeek;
-
-import static java.time.DayOfWeek.*;
+import java.time.LocalDate;
 
 public class CalculateWorkingDaysCommand implements Command {
     private final Input input;
@@ -20,23 +18,20 @@ public class CalculateWorkingDaysCommand implements Command {
     @Override
     public void execute() throws IOException {
         LocalDate current = input.start();
-        int daysWorking = 0;
-
-        while (!current.isAfter(input.end())) {
-            if (current.getDayOfWeek() != SATURDAY && current.getDayOfWeek() != SUNDAY) {
-                daysWorking++;
+        int daysWorked = 0;
+        while(!current.isAfter(input.end())) {
+            if(current.getDayOfWeek() != DayOfWeek.SATURDAY && current.getDayOfWeek() != DayOfWeek.SUNDAY) {
+                daysWorked++;
             }
             current = current.plusDays(1);
         }
-        output.daysWorking(daysWorking);
+        output.daysWorked(daysWorked);
     }
-
-    public interface Input {
+    public interface Input{
         LocalDate start();
         LocalDate end();
     }
-
-    public interface Output {
-        void daysWorking(int days) throws IOException;
+    public interface Output{
+        void daysWorked(int days) throws IOException;
     }
 }

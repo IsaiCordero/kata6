@@ -1,11 +1,11 @@
 package software.ulpgc.kata6;
 
-import software.ulpgc.kata6.control.webBuilder;
-import software.ulpgc.kata6.view.WorkingDaysService;
+import software.ulpgc.kata6.control.WebService;
+import software.ulpgc.kata6.view.WorkingService;
 
 public class Main {
     public static void main(String[] args) {
-        webBuilder web = new webBuilder();
-        new WorkingDaysService(8080, web).start();
+        WebService web = new WebService();
+        new WorkingService(8080, web).start();
     }
 }

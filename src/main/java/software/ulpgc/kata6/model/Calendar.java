@@ -8,9 +8,10 @@ import java.util.Set;
 import static java.time.DayOfWeek.*;
 
 public class Calendar {
-    public Iterator<LocalDate> from(LocalDate date){
+    public Iterator<LocalDate> from(LocalDate date) {
         return new Iterator<LocalDate>() {
             LocalDate current = date;
+
             @Override
             public boolean hasNext() {
                 return true;
@@ -19,20 +20,13 @@ public class Calendar {
             @Override
             public LocalDate next() {
                 var next = current.plusDays(1);
-                while (!WorkingDay(next)){
+                while(!daysOfWork.contains(next.getDayOfWeek())) {
                     next = next.plusDays(1);
                 }
                 current = next;
                 return next;
             }
-
-            private boolean WorkingDay(LocalDate day) {
-                return daysOfWork.contains(day.getDayOfWeek());
-            }
-
-
         };
     }
     private final Set<DayOfWeek> daysOfWork = Set.of(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY);
-
 }
